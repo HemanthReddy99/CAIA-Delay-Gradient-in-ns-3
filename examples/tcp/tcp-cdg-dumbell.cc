@@ -68,22 +68,23 @@ int main (int argc, char *argv[])
   cmd.Parse(argc, argv);
 
   // Set default values
- Config::SetDefault ("ns3::QueueBase::MaxPackets", UintegerValue(queueSize));
+ //Config::SetDefault ("ns3::QueueBase::MaxPackets", UintegerValue(queueSize));
  socketType = "ns3::TcpSocketFactory";
  
   // Set transport protocol based on user input
   if (tcpType.compare("CDG") == 0)
     {
+     std::string tcpModel ("ns3::TcpCDG");
      std::cout << "\nSetting default protocol to Tcp-CDG" << std::endl;
      Config::SetDefault("ns3::TcpL4Protocol::SocketType", TypeIdValue (TcpCDG::GetTypeId ()));
-     Config::SetDefault("ns3::TcpCDG::BackoffBeta", uint32_t(backoff_beta));
-     Config::SetDefault("ns3::TcpCDG::BackoffFactor", uint32_t(backoff_factor));
-     Config::SetDefault("ns3::TcpCDG::IneffectiveThresh", uint32_t(ineffective_thresh));
-     Config::SetDefault("ns3::TcpCDG::IneffectiveHold", uint32_t(ineffective_hold));
-     Config::SetDefault("ns3::TcpCDG::RTTSequence", uint32_t(rtt_seq));
-     Config::SetDefault("ns3::TcpCDG::LossCwnd", uint32_t(loss_cwnd));
-     Config::SetDefault("ns3::TcpCDG::BackoffCount", uint32_t(backoff_count));
-     Config::SetDefault("ns3::TcpCDG::Delack", uint32_t(delack));
+     Config::SetDefault("ns3::TcpCDG::BackoffBeta", UintegerValue(backoff_beta));
+     Config::SetDefault("ns3::TcpCDG::BackoffFactor", UintegerValue(backoff_factor));
+     Config::SetDefault("ns3::TcpCDG::IneffectiveThresh", UintegerValue(ineffective_thresh));
+     Config::SetDefault("ns3::TcpCDG::IneffectiveHold", UintegerValue(ineffective_hold));
+     Config::SetDefault("ns3::TcpCDG::RTTSequence", UintegerValue(rtt_seq));
+     Config::SetDefault("ns3::TcpCDG::LossCwnd", UintegerValue(loss_cwnd));
+     Config::SetDefault("ns3::TcpCDG::BackoffCount", UintegerValue(backoff_cnt));
+     Config::SetDefault("ns3::TcpCDG::Delack", UintegerValue(delack));
     
      
      /*Config::SetDefault("ns3::TcpCDG::QSizeCallback", CallbackValue(MakeCallback(&getQSize)));
@@ -151,10 +152,10 @@ int main (int argc, char *argv[])
 
   Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
 
-  Ptr<NetDevice> nd = dumbbell.m_rightLeafDevices.Get(0);
-  Ptr<PointToPointNetDevice> outgoingPort = DynamicCast<PointToPointNetDevice>(nd);
-  Ptr<QueueBase> q = outgoingPort->GetQueue();
-  q->TraceConnectWithoutContext("PacketsInQueue", MakeCallback(&queue_callback));
+  // Ptr<NetDevice> nd = dumbbell.m_rightLeafDevices.Get(0);
+  // Ptr<PointToPointNetDevice> outgoingPort = DynamicCast<PointToPointNetDevice>(nd);
+  // Ptr<QueueBase> q = outgoingPort->GetQueue();
+  // q->TraceConnectWithoutContext("PacketsInQueue", MakeCallback(&queue_callback));
 
   p2pLeaf.EnablePcapAll ("Dumbbell", true);
 
