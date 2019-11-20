@@ -152,6 +152,7 @@ def build(bld):
         'model/tcp-vegas.cc',
         'model/tcp-congestion-ops.cc',
         'model/tcp-westwood.cc',
+        'model/tcp-cdg.cc',
         'model/tcp-scalable.cc', 
         'model/tcp-veno.cc',
         'model/tcp-bic.cc',
@@ -293,7 +294,6 @@ def build(bld):
         'test/tcp-datasentcb-test.cc',
         'test/ipv4-rip-test.cc',
         'test/tcp-close-test.cc',
-        'test/icmp-test.cc',
         ]
     privateheaders = bld(features='ns3privateheader')
     privateheaders.module = 'internet'
@@ -374,6 +374,7 @@ def build(bld):
         'model/global-router-interface.h',
         'model/global-route-manager.h',
         'model/global-route-manager-impl.h',
+        'model/tcp-cdg.h',
         'model/candidate-queue.h',
         'model/ipv4-global-routing.h',
         'helper/ipv4-global-routing-helper.h',
